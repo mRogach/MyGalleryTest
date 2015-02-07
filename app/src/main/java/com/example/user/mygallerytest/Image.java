@@ -3,10 +3,10 @@ package com.example.user.mygallerytest;
 /**
  * Created by User on 03.02.2015.
  */
-public class Picture {
+public class Image {
     private String mUrl;
 
-    public Picture(String mUrl) {
+    public Image(String mUrl) {
         this.mUrl = mUrl;
     }
 

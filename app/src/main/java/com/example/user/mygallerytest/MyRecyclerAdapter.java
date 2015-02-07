@@ -1,32 +1,29 @@
 package com.example.user.mygallerytest;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.user.mygallerytest.global.Constants;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by User on 03.02.2015.
  */
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder> {
+public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
 
-    private Context context;
-    private List<Picture> items;
+
+    private ArrayList<Image> items;
     private int itemLayout;
-    private MyCallBack myCallBack;
 
 
-    public MyRecyclerAdapter(Context context, List<Picture> items, int itemLayout, MyCallBack myCallBack) {
+    public MyRecyclerAdapter(ArrayList<Image> items, int itemLayout) {
         this.items = items;
         this.itemLayout = itemLayout;
-        this.context = context;
-        this.myCallBack = myCallBack;
+
     }
 
     @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -35,11 +32,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
-       // Picture item = items.get(position);
+        Image item = items.get(position);
 
-       // holder.image.setImageBitmap(null);
-        loadImage(holder.image);
-       // holder.itemView.setTag(item);
+        Picasso.with(holder.image.getContext())
+                .load(item.getmUrl())
+                .into(holder.image);
+        holder.itemView.setTag(item);
     }
 
     @Override public int getItemCount() {
@@ -57,8 +55,4 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         }
     }
 
-    private void loadImage(ImageView _imageView) {
-        new DownloadImageTask(context, _imageView, myCallBack).execute(Constants.URL);
-
-    }
 }

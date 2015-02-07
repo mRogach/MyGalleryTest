@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by User on 04.02.2015.
@@ -16,10 +16,10 @@ import java.util.List;
 public class DetailPhotoFragment extends Fragment {
     private ViewPager viewPager;
     private PagerAdapter adapter;
-    private List <Picture> list;
-    public static DetailPhotoFragment newInstance(List<Picture> list) {
+    private ArrayList <Image> list;
+    public static DetailPhotoFragment newInstance(ArrayList<Image> list) {
         Bundle args = new Bundle();
-        args.putSerializable("image", (java.io.Serializable) list);
+        args.putSerializable("image", list);
         DetailPhotoFragment countryDetailFragment = new DetailPhotoFragment();
         countryDetailFragment.setArguments(args);
         return countryDetailFragment;
@@ -29,8 +29,8 @@ public class DetailPhotoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-        list = (List<Picture>) getArguments().getSerializable("image");
+        list = new ArrayList<Image>();
+        list = (ArrayList<Image>) getArguments().getSerializable("image");
 
     }
 
