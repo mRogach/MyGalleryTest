@@ -1,8 +1,9 @@
 package com.example.user.mygallerytest;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -44,7 +45,7 @@ public class RecyclerFragment extends Fragment {
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        final Fragment fragment = DetailPhotoFragment.newInstance(createList());
+                        final Fragment fragment = ViewPagerFragment.newInstance(createList());
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(R.id.fragmentContainer, fragment);
                         ft.addToBackStack("tag");
@@ -67,8 +68,6 @@ public class RecyclerFragment extends Fragment {
                 }
 
             }).execute(Constants.URL);
-
-
         }
         return items;
     }

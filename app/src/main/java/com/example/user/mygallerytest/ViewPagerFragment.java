@@ -1,8 +1,10 @@
 package com.example.user.mygallerytest;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,14 @@ import java.util.ArrayList;
 /**
  * Created by User on 04.02.2015.
  */
-public class DetailPhotoFragment extends Fragment {
+public class ViewPagerFragment extends Fragment {
     private ViewPager viewPager;
-    private PagerAdapter adapter;
     private ArrayList <Image> list;
-    public static DetailPhotoFragment newInstance(ArrayList<Image> list) {
+
+    public static ViewPagerFragment newInstance(ArrayList<Image> list) {
         Bundle args = new Bundle();
         args.putSerializable("image", list);
-        DetailPhotoFragment countryDetailFragment = new DetailPhotoFragment();
+        ViewPagerFragment countryDetailFragment = new ViewPagerFragment();
         countryDetailFragment.setArguments(args);
         return countryDetailFragment;
     }
@@ -38,8 +40,18 @@ public class DetailPhotoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.image_viewpager, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.pager);
-        adapter = new ViewPagerAdapter(getActivity(), list);
-        viewPager.setAdapter(adapter);
+        FragmentManager fm = getFragmentManager();
+        viewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
+            @Override
+            public int getCount() {
+                return list.size();
+            }
+            @Override
+            public Fragment getItem(int pos) {
+                Image image = list.get(pos);
+                return ImageFragment.newInstance(image.getmUrl());
+            }
+        });
         return view;
     }
 
